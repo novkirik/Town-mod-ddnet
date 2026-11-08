@@ -1029,6 +1029,10 @@ bool CCharacter::IncreaseHealth(int Amount)
 	if(m_Health >= 10)
 		return false;
 	m_Health = std::clamp(m_Health + Amount, 0, 10);
+	if(GameServer()->m_pController)
+	{
+		GameServer()->m_pController->AddedHP(this); // TOWN CHECK DID HP ADDED?
+	}
 	return true;
 }
 

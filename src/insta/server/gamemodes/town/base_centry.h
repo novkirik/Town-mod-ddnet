@@ -1,0 +1,26 @@
+#ifndef INSTA_SERVER_GAMEMODES_TOWN_BASE_CENTRY_H
+#define INSTA_SERVER_GAMEMODES_TOWN_BASE_CENTRY_H
+
+#include "../base_pvp/base_pvp.h"
+
+
+class CGameControllerCentry : public CGameControllerBasePvp
+{
+private:
+	
+
+public:
+	CGameControllerCentry(class CGameContext *pGameServer);
+	~CGameControllerCentry() override;
+	bool OnlyOneHP;
+	bool OnlyOneUnFreeze;
+	void AddedHP(CCharacter *pCharacter) override;
+	int SnapGameInfoExFlags(int SnappingClient, int DDRaceFlags) override;
+	void OnFreeze(CPlayer *pPlayer) override;
+	void OnUnfreeze(CPlayer *pPlayer) override;
+	bool DecreaseHealthAndKill(int Dmg, int From, int Weapon, CCharacter *pCharacter) override;
+	bool OnCharacterTakeDamage(vec2 &Force, int &Dmg, int &From, int &Weapon, CCharacter &Character) override;
+	bool OnEntity(int Index, int x, int y, int Layer, int Flags, bool Initial, int Number) override;
+	bool IsTownGameType() const override { return true; }
+};
+#endif

@@ -53,6 +53,10 @@ public:
 	*/
 	virtual int CreateTee(const char *pName) { return -1; }
 
+
+	virtual void AddedHP(CCharacter *pCharacter) {}
+
+
 	/*
 		Function: DropTee
 			Counter part to CreateTee()
@@ -60,6 +64,7 @@ public:
 		Arguments:
 			ClientId - Client id returned by CreateTee()
 	*/
+	
 	virtual void DropTee(int ClientId) {}
 
 	/*
@@ -1823,6 +1828,8 @@ public:
 	// https://github.com/ddnet-insta/ddnet-insta/issues/364
 	// returns true if sv_gametype is "ddnet" or "ddrace"
 	virtual bool IsDDRaceGameType() const { return true; }
+
+	virtual bool IsTownGameType() const { return false; }
 
 	virtual bool IsBlockGameType() const { return false; }
 	virtual bool IsFootGameType() const { return false; }
