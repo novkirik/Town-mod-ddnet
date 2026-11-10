@@ -3165,6 +3165,8 @@ if(SERVER)
     entities/plasma.h
     entities/projectile.cpp
     entities/projectile.h
+    entities/trigger_zone.cpp
+    entities/trigger_zone.h
     entity.cpp
     entity.h
     eventhandler.cpp

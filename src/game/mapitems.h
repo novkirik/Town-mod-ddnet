@@ -64,6 +64,7 @@ enum
 	ENTITY_WEAPON_GRENADE = 9,
 	ENTITY_POWERUP_NINJA = 10,
 	ENTITY_WEAPON_LASER = 11,
+	ENTITY_TRIGGER = 12,
 
 	// DDRace - Main Lasers
 	ENTITY_LASER_FAST_CCW = 12,
@@ -112,6 +113,7 @@ enum
 
 	// Doors
 	ENTITY_DOOR = 49,
+
 	// End Of Lower Tiles
 
 	ENTITY_OFFSET = 255 - 16 * 4,

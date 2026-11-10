@@ -15,6 +15,7 @@ public:
 	bool OnlyOneHP;
 	bool OnlyOneUnFreeze;
 	void AddedHP(CCharacter *pCharacter) override;
+
 	int SnapGameInfoExFlags(int SnappingClient, int DDRaceFlags) override;
 	void OnFreeze(CPlayer *pPlayer) override;
 	void OnUnfreeze(CPlayer *pPlayer) override;

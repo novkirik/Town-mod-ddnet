@@ -70,6 +70,7 @@ enum
 	TILE_VANILLA_GRENADE = 200,
 	TILE_VANILLA_NINJA = 201,
 	TILE_VANILLA_LASER = 202,
+	TILE_VANILLA_TRIGGER = 203,
 };
 
 const char *CExplanations::ExplainDDNet(int Tile, int Layer)
@@ -729,6 +730,10 @@ const char *CExplanations::ExplainVanilla(int Tile, int Layer)
 		if(Layer == LAYER_GAME)
 			return "LASER: Gives you laser weapon with 10 charges.";
 		break;
+	case TILE_VANILLA_TRIGGER:
+		if(Layer == LAYER_GAME)
+			return "NEW TRIGGER: TEST.";
+		break;
 	}
 	if((Tile >= TILE_PUB_CREDITS1 && Tile <= TILE_PUB_CREDITS8) && Layer == LAYER_GAME)
 		return "CREDITS: Who designed the entities.";
@@ -753,6 +758,8 @@ const char *CExplanations::Explain(EGametype Gametype, int Tile, int Layer)
 		return ExplainVanilla(Tile, Layer);
 	case EGametype::BLOCKWORLDS:
 		return nullptr; // TODO: Explanations for Blockworlds
+	case EGametype::TOWN:
+		return nullptr;
 	}
 	dbg_assert_failed("Gametype invalid: %d", (int)Gametype);
 }

@@ -104,6 +104,7 @@ public:
 	bool m_EntitiesFNG;
 	bool m_EntitiesVanilla;
 	bool m_EntitiesBW;
+	bool m_EntitiesTW;
 	bool m_EntitiesFDDrace;
 
 	bool m_Race;

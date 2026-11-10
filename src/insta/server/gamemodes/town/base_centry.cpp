@@ -9,6 +9,7 @@
 
 #include <insta/server/entities/ddnet_pvp/vanilla_pickup.h>
 #include <insta/server/protocol.h>
+#include <game/server/entities/trigger_zone.h>
 
 CGameControllerCentry::CGameControllerCentry(class CGameContext *pGameServer) :
 	CGameControllerBasePvp(pGameServer)
@@ -98,7 +99,7 @@ bool CGameControllerCentry::DecreaseHealthAndKill(int Dmg, int From, int Weapon,
 	return death;
 }
 
-void CGameControllerCentry::AddedHP(CCharacter *pCharacter)
+void CGameControllerCentry::AddedHP(CCharacter *pCharacter) // Function call when adds HP
 {
 	if(pCharacter->m_FreezeTime>0)
 	{
@@ -139,6 +140,11 @@ bool CGameControllerCentry::OnEntity(int Index, int x, int y, int Layer, int Fla
 	{
 		Type = POWERUP_WEAPON;
 		SubType = WEAPON_LASER;
+	}
+	else if(Index == ENTITY_TRIGGER)
+	{
+		new CTriggerZone(&GameServer()->m_World, Pos);
+		return true;
 	}
 	else if(Index == ENTITY_POWERUP_NINJA)
 	{

@@ -19,7 +19,7 @@ enum EMapImageModType
 	MAP_IMAGE_MOD_TYPE_FNG,
 	MAP_IMAGE_MOD_TYPE_VANILLA,
 	MAP_IMAGE_MOD_TYPE_FDDRACE,
-
+	MAP_IMAGE_MOD_TYPE_TOWN,
 	MAP_IMAGE_MOD_TYPE_COUNT,
 };
 
@@ -28,6 +28,7 @@ constexpr const char *const gs_apModEntitiesNames[] = {
 	"ddrace",
 	"race",
 	"blockworlds",
+	"Town",
 	"fng",
 	"vanilla",
 	"f-ddrace",
