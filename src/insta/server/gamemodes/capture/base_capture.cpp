@@ -1,4 +1,4 @@
-#include "base_centry.h"
+#include "base_capture.h"
 
 #include <engine/shared/config.h>
 
@@ -11,7 +11,7 @@
 #include <insta/server/protocol.h>
 #include <game/server/entities/trigger_zone.h>
 
-CGameControllerCentry::CGameControllerCentry(class CGameContext *pGameServer) :
+CGameControllerCapture::CGameControllerCapture(class CGameContext *pGameServer) :
 	CGameControllerBasePvp(pGameServer)
 {
 	m_GameFlags = 0;
@@ -19,10 +19,10 @@ CGameControllerCentry::CGameControllerCentry(class CGameContext *pGameServer) :
 	m_DefaultWeapon = WEAPON_GUN;
 }
 
-CGameControllerCentry::~CGameControllerCentry() = default;
+CGameControllerCapture::~CGameControllerCapture() = default;
 
 
-int CGameControllerCentry::SnapGameInfoExFlags(int SnappingClient, int DDRaceFlags)
+int CGameControllerCapture::SnapGameInfoExFlags(int SnappingClient, int DDRaceFlags)
 {
 	int Flags = CGameControllerBasePvp::SnapGameInfoExFlags(SnappingClient, DDRaceFlags);
 	if(Server()->GetClientVersion(SnappingClient) < VERSION_DDNET_PICKUPFLAG_NO_PREDICT)
@@ -34,7 +34,7 @@ int CGameControllerCentry::SnapGameInfoExFlags(int SnappingClient, int DDRaceFla
 
 // WARNING: this does not call the base pvp take damage method
 //          so it has to reimplement all the relevant functionality
-bool CGameControllerCentry::OnCharacterTakeDamage(vec2 &Force, int &Dmg, int &From, int &Weapon, CCharacter &Character)
+bool CGameControllerCapture::OnCharacterTakeDamage(vec2 &Force, int &Dmg, int &From, int &Weapon, CCharacter &Character)
 {
 	if(Weapon == WEAPON_GUN || Weapon == WEAPON_SHOTGUN)
 		Dmg = 1;
@@ -58,14 +58,14 @@ bool CGameControllerCentry::OnCharacterTakeDamage(vec2 &Force, int &Dmg, int &Fr
 	return false;
 }
 
-void CGameControllerCentry::OnFreeze(CPlayer *pPlayer)
+void CGameControllerCapture::OnFreeze(CPlayer *pPlayer)
 {
 	CCharacter *Chr = pPlayer->GetCharacter();
 	if(Chr && Chr->m_FreezeTime == 0)
 	{
 		Chr->Freeze(15);
 	}
-	else if(Chr && Chr->Health()>=4 && Chr->m_FreezeTime>200 && OnlyOneUnFreeze==false)
+	else if(Chr && Chr->Health()>=9 && Chr->m_FreezeTime>200 && OnlyOneUnFreeze==false)
 	{
 		Chr->Unfreeze();
 		Chr->Freeze(4);
@@ -73,33 +73,40 @@ void CGameControllerCentry::OnFreeze(CPlayer *pPlayer)
 	}
 	
 }
-void CGameControllerCentry::OnUnfreeze(CPlayer *pPlayer)
+void CGameControllerCapture::OnUnfreeze(CPlayer *pPlayer)
 {
 	CCharacter *Chr = pPlayer->GetCharacter();
 	if(Chr && Chr->m_FreezeTime == 0 && OnlyOneUnFreeze==true && OnlyOneHP==true)
 	{
+		Chr->SetHealth(3);
 		OnlyOneHP=false;
 		OnlyOneUnFreeze=false;
 	}
 }
 
-bool CGameControllerCentry::DecreaseHealthAndKill(int Dmg, int From, int Weapon, CCharacter *pCharacter)
+bool CGameControllerCapture::DecreaseHealthAndKill(int Dmg, int From, int Weapon, CCharacter *pCharacter)
 {
-	bool death = CGameControllerBasePvp::DecreaseHealthAndKill(Dmg,From,Weapon,pCharacter); /// Is tee dead?
-	if(!death && pCharacter->Health()<=2)
+
+	if (!(pCharacter->m_FreezeTime>0))
 	{
-		if(OnlyOneHP==false) // Avoid dupe HP while tee in freeze
-		{
-			pCharacter->AddHealth(1);
-			OnlyOneHP=true;
-		}
-		
-		OnFreeze(pCharacter->GetPlayer());
+		OnlyOneHP = false;
 	}
-	return death;
+        
+    if (pCharacter->Health() - Dmg <= 0 && !OnlyOneHP) // Avoid dupe HP while tee in freeze
+    {
+
+        pCharacter->SetHealth(7);
+        OnlyOneHP = true;
+        OnFreeze(pCharacter->GetPlayer());
+        
+
+        return false; 
+    }
+	
+    return CGameControllerBasePvp::DecreaseHealthAndKill(Dmg, From, Weapon, pCharacter);
 }
 
-void CGameControllerCentry::AddedHP(CCharacter *pCharacter) // Function call when adds HP
+void CGameControllerCapture::AddedHP(CCharacter *pCharacter) // Function call when adds HP
 {
 	if(pCharacter->m_FreezeTime>0)
 	{
@@ -107,7 +114,7 @@ void CGameControllerCentry::AddedHP(CCharacter *pCharacter) // Function call whe
 	}
 }
 
-bool CGameControllerCentry::OnEntity(int Index, int x, int y, int Layer, int Flags, bool Initial, int Number)
+bool CGameControllerCapture::OnEntity(int Index, int x, int y, int Layer, int Flags, bool Initial, int Number)
 {
 	const vec2 Pos((x * 32.0f) + 16.0f, (y * 32.0f) + 16.0f);
 

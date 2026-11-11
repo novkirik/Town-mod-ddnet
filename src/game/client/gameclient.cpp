@@ -1560,7 +1560,6 @@ static CGameInfo GetGameInfo(const CNetObj_GameInfoEx *pInfoEx, int InfoExSize, 
 	bool DDRace;
 	bool DDNet;
 	bool BlockWorlds;
-	bool Town;
 	bool City;
 	bool Vanilla;
 	bool Plus;
@@ -1624,7 +1623,6 @@ static CGameInfo GetGameInfo(const CNetObj_GameInfoEx *pInfoEx, int InfoExSize, 
 	Info.m_EntitiesFNG = FNG;
 	Info.m_EntitiesVanilla = Vanilla;
 	Info.m_EntitiesBW = BlockWorlds;
-	Info.m_EntitiesTW = Town;
 	Info.m_Race = Race;
 	Info.m_Pvp = !Race;
 	Info.m_DontMaskEntities = !DDNet;

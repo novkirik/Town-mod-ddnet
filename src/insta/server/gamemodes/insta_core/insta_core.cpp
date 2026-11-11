@@ -1636,7 +1636,7 @@ bool CGameControllerInstaCore::OnClientPacket(int ClientId, bool Sys, int MsgId,
 
 bool CGameControllerInstaCore::UnfreezeOnHammerHit() const
 {
-	if(IsFngGameType() || IsTownGameType())
+	if(IsFngGameType() || IsCaptureGameType())
 		return false;
 	return g_Config.m_SvFreezeHammer == 0;
 }

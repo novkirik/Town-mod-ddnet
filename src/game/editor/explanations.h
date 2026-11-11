@@ -12,7 +12,6 @@ public:
 		RACE,
 		VANILLA,
 		BLOCKWORLDS,
-		TOWN,
 	};
 	static const char *Explain(EGametype Gametype, int Tile, int Layer);
 

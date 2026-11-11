@@ -234,10 +234,10 @@ function(insta_patch_server)
       gamemodes/instagib/zcatch/track_caught_time.cpp
       gamemodes/instagib/zcatch/zcatch.cpp
       gamemodes/instagib/zcatch/zcatch.h
-      gamemodes/town/base_centry.cpp
-      gamemodes/town/base_centry.h
-      gamemodes/town/town.cpp
-      gamemodes/town/town.h
+      gamemodes/capture/base_capture.cpp
+      gamemodes/capture/base_capture.h
+      gamemodes/capture/TCP/TCP.cpp
+      gamemodes/capture/TCP/TCP.h
       gamemodes/vanilla/base_ctf.cpp
       gamemodes/vanilla/base_ctf.h
       gamemodes/vanilla/base_vanilla.cpp

@@ -758,8 +758,6 @@ const char *CExplanations::Explain(EGametype Gametype, int Tile, int Layer)
 		return ExplainVanilla(Tile, Layer);
 	case EGametype::BLOCKWORLDS:
 		return nullptr; // TODO: Explanations for Blockworlds
-	case EGametype::TOWN:
-		return nullptr;
 	}
 	dbg_assert_failed("Gametype invalid: %d", (int)Gametype);
 }

@@ -1829,7 +1829,7 @@ public:
 	// returns true if sv_gametype is "ddnet" or "ddrace"
 	virtual bool IsDDRaceGameType() const { return true; }
 
-	virtual bool IsTownGameType() const { return false; }
+	virtual bool IsCaptureGameType() const { return false; }
 
 	virtual bool IsBlockGameType() const { return false; }
 	virtual bool IsFootGameType() const { return false; }

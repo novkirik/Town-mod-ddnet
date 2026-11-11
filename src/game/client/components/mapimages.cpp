@@ -209,8 +209,6 @@ static EMapImageModType GetEntitiesModType(const CGameInfo &GameInfo)
 		return MAP_IMAGE_MOD_TYPE_RACE;
 	else if(GameInfo.m_EntitiesBW)
 		return MAP_IMAGE_MOD_TYPE_BLOCKWORLDS;
-	else if(GameInfo.m_EntitiesTW)
-		return MAP_IMAGE_MOD_TYPE_TOWN;
 	else if(GameInfo.m_EntitiesFNG)
 		return MAP_IMAGE_MOD_TYPE_FNG;
 	else if(GameInfo.m_EntitiesVanilla)
