@@ -71,6 +71,7 @@ enum
 	TILE_VANILLA_NINJA = 201,
 	TILE_VANILLA_LASER = 202,
 	TILE_VANILLA_TRIGGER = 203,
+	TILE_VANILLA_GUN = 204,
 };
 
 const char *CExplanations::ExplainDDNet(int Tile, int Layer)
@@ -732,7 +733,11 @@ const char *CExplanations::ExplainVanilla(int Tile, int Layer)
 		break;
 	case TILE_VANILLA_TRIGGER:
 		if(Layer == LAYER_GAME)
-			return "NEW TRIGGER: TEST.";
+			return "Zone: Awards points while in the zone";
+		break;
+	case TILE_VANILLA_GUN:
+		if(Layer == LAYER_GAME)
+			return "GUN: Gives you gun weapon with 10 charges";
 		break;
 	}
 	if((Tile >= TILE_PUB_CREDITS1 && Tile <= TILE_PUB_CREDITS8) && Layer == LAYER_GAME)

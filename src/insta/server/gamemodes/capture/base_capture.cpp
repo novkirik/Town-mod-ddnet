@@ -17,6 +17,7 @@ CGameControllerCapture::CGameControllerCapture(class CGameContext *pGameServer) 
 	m_GameFlags = 0;
 	m_IsVanillaGameType = true;
 	m_DefaultWeapon = WEAPON_GUN;
+	g_Config.m_SvAllowZoom = 1;
 }
 
 CGameControllerCapture::~CGameControllerCapture() = default;
@@ -56,6 +57,18 @@ bool CGameControllerCapture::OnCharacterTakeDamage(vec2 &Force, int &Dmg, int &F
 	ApplyVanillaDamage(Dmg, From, Weapon, &Character);
 	DecreaseHealthAndKill(Dmg, From, Weapon, &Character);
 	return false;
+}
+
+void CGameControllerCapture::OnAnyDamage(vec2 &Force, int &Dmg, int &From, int &Weapon, CCharacter *pCharacter)
+{
+	CPlayer *pPlayer = pCharacter->GetPlayer();
+	CPlayer *pKiller = GetPlayerOrNullptr(From);
+	if(pPlayer->GetTeam()==pKiller->GetTeam() && pCharacter->m_FreezeTime>0)
+	{
+		pCharacter->AddHealth(1);
+		AddedHP(pCharacter);
+	}
+
 }
 
 void CGameControllerCapture::OnFreeze(CPlayer *pPlayer)
@@ -147,6 +160,11 @@ bool CGameControllerCapture::OnEntity(int Index, int x, int y, int Layer, int Fl
 	{
 		Type = POWERUP_WEAPON;
 		SubType = WEAPON_LASER;
+	}
+	else if(Index == ENTITY_WEAPON_GUN)
+	{
+		Type = POWERUP_WEAPON;
+		SubType = WEAPON_GUN;
 	}
 	else if(Index == ENTITY_TRIGGER)
 	{
